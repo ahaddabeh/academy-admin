@@ -48,12 +48,12 @@ const browserConfig = {
         writeToDisk: false,
         compress: true,
         // host: '192.168.0.134',
-        port: 4001,
+        port: 3501,
         historyApiFallback: true, // resolves error while refresh or access directly
         // from browser. Error GET /someroot
         // proxy: {
         //     "/api": {
-        //         target: "http://localhost:4000",
+        //         target: "http://localhost:3500",
         //         secure: false,
         //         changeOrigin: true,
         //         logLevel: "debug"
