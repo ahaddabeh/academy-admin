@@ -2,7 +2,7 @@ import React from 'react';
 import { Route, Switch } from 'react-router-dom';
 import routes from './routes';
 import NoMatch from './components/NoMatch';
-
+import Layout from './components/ui/Layout';
 
 const App = () => {
 
@@ -15,14 +15,14 @@ const App = () => {
                         path={path}
                         exact={exact}
                         render={props => (
-                            <Component {...props} {...rest} />
+                            <Layout><Component {...props} {...rest} /></Layout>
                         )}
                     />
                 )
             )}
             <Route
                 render={props => (
-                    <NoMatch {...props} />
+                    <Layout><NoMatch {...props} /></Layout>
                 )}
             />
         </Switch>

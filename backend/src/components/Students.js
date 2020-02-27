@@ -1,10 +1,16 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 
-const Students = () => {
+const buildStudents = (students) => {
+    return students.map((student) => <li>{student.first_name}</li>)
+}
+
+const Students = (props) => {
+    const students = props.fetchStudents();
     return (
-        <h1>
-            Students
-        </h1>
+        <Fragment>
+            <h1>Students</h1>
+            <ul>{buildStudents(students)}</ul>
+        </Fragment>
     )
 }
 
