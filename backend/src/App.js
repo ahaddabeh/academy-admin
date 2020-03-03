@@ -15,7 +15,10 @@ const App = () => {
                         path={path}
                         exact={exact}
                         render={props => (
-                            <Layout><Component {...props} {...rest} /></Layout>
+                            <Layout>
+                                <h1>Hello world</h1>
+                                <Component {...props} {...rest} />
+                            </Layout>
                         )}
                     />
                 )

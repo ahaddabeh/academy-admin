@@ -1,3 +1,5 @@
+import Students from "./components/Students"
+
 export const fetchStudents = () => {
     return [{
         "id": 1,
@@ -120,3 +122,20 @@ export const fetchStudents = () => {
         "updatedAt": 1582067651717
     }]
 }
+
+// export const fetchRoutes = () => {
+//     return [
+//         {
+//             path: '/',
+//             exact: true,
+//             component: Home,
+//             navlabel: "Home"
+//         },
+//         {
+//             path: '/students',
+//             exact: true,
+//             component: Students,
+//             navlabel: "Students"
+//         }
+//     ]
+// }
