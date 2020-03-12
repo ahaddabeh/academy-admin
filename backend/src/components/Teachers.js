@@ -1,17 +1,15 @@
 import React, { Fragment } from 'react';
-const arr = [
-    <p key='123'>1. My name is Alaa</p>,
-    <p key='124'>2. My name is Alaa</p>,
-    <p key='125'>3. My name is Alaa</p>
-];
 
-const Teachers = () => {
+const buildTeachers = (teachers) => {
+    return teachers.map((teacher) => <li key={teacher.first_name + " " + teacher.last_name}>{teacher.first_name}</li>)
+}
+
+const Teachers = (props) => {
+    const teachers = props.fetchTeachers();
     return (
         <Fragment>
-            <h1>
-                Teachers
-            </h1>
-            {arr}
+            <h1>Teachers</h1>
+            <ul>{buildTeachers(teachers)}</ul>
         </Fragment>
     )
 }

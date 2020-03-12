@@ -16,7 +16,6 @@ const App = () => {
                         exact={exact}
                         render={props => (
                             <Layout>
-                                <h1>Hello world</h1>
                                 <Component {...props} {...rest} />
                             </Layout>
                         )}
