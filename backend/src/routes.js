@@ -2,9 +2,13 @@ import Home from './components/Home'
 import Students from './components/Students'
 import Teachers from './components/Teachers'
 import Parents from './components/Parents'
-import { fetchStudents } from './api'
-import { fetchTeachers } from './api'
-import { fetchParents } from './api'
+import Student from './components/Student'
+import {
+    fetchStudents,
+    fetchStudent,
+    fetchTeachers,
+    fetchParents
+} from './api'
 const routes = [
     {
         path: '/',
@@ -36,13 +40,13 @@ const routes = [
         navlabel: "Parents",
         navorder: 3,
         fetchParents: () => fetchParents()
-    }
-    // {
-    //     path: '/student-details',
-    //     exact: true,
-    //     component: StudentDetails,
-    //     fetchStudentDetails: () => fetchStudentDetails()
-    // }
+    },
+    {
+        path: '/student/:id',
+        exact: true,
+        component: Student,
+        fetchStudent: (id) => fetchStudent(id)
+    },
 ];
 
 export default routes;

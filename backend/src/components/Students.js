@@ -1,21 +1,20 @@
 import React, { Fragment } from 'react';
+import { Link } from 'react-router-dom';
 
 const buildStudents = (students) => {
-    return students.map((student) => {
-        <Fragment>
-            <tr>
-                <td key={student.last_name}>{student.last_name}</td>
-                <td key={student.first_name}>{student.first_name}</td>
-                <td key={student.grade}>{student.grade}</td>
-                <td><a href="#"><button type="button"
-                    className="btn btn-info btn-sm">Info</button></a></td>
-                <td>
-                    <button type="button" className="btn btn-primary btn-sm"><i
-                        className="fa fa-edit"></i></button>
-                </td>
-            </tr>
-        </Fragment>
-    })
+    return students.map((student) => (
+        <tr key={`${student.id}_${student.first_name}`}>
+            <td>{student.id}</td>
+            <td>{student.last_name}</td>
+            <td>{student.first_name}</td>
+            <td>{student.grade}</td>
+            <td>
+                <Link to={`/student/${student.id}`}>
+                    <button type="button" className="btn btn-info btn-sm">Info</button>
+                </Link>
+            </td>
+        </tr>
+    ))
 }
 
 const Students = (props) => {
@@ -32,7 +31,6 @@ const Students = (props) => {
                             <th>First Name</th>
                             <th>Grade</th>
                             <th>Student Info</th>
-                            <th>Edit</th>
                         </tr>
                     </thead>
                     <tbody>
