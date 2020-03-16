@@ -3,11 +3,16 @@ import Students from './components/Students'
 import Teachers from './components/Teachers'
 import Parents from './components/Parents'
 import Student from './components/Student'
+import Teacher from './components/Teacher'
+import Parent from './components/Parent'
 import {
     fetchStudents,
     fetchStudent,
     fetchTeachers,
-    fetchParents
+    fetchParents,
+    fetchStudentTeacher,
+    fetchParent,
+    fetchTeacher
 } from './api'
 const routes = [
     {
@@ -45,8 +50,22 @@ const routes = [
         path: '/student/:id',
         exact: true,
         component: Student,
-        fetchStudent: (id) => fetchStudent(id)
+        fetchStudent: (id) => fetchStudent(id),
+        fetchStudentTeacher: () => fetchStudentTeacher(),
+        fetchTeachers: () => fetchTeachers()
     },
+    {
+        path: '/teacher/:id',
+        exact: true,
+        component: Teacher,
+        fetchTeacher: (id) => fetchTeacher(id)
+    },
+    {
+        path: '/parent/:id',
+        exact: true,
+        component: Parent,
+        fetchParent: (id) => fetchParent(id)
+    }
 ];
 
 export default routes;
