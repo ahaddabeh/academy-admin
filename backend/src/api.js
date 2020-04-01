@@ -2,6 +2,71 @@ import Students from "./components/Students"
 import Teachers from "./components/Teachers"
 import Parents from "./components/Parents"
 
+
+const _fetchStudent = {
+
+    "id": 1,
+    "first_name": "Gene",
+    "last_name": "O'Dooghaine",
+    "age": 6,
+    "gender": "Male",
+    "grade": 1,
+    "address": "854 Leroy Road",
+    "family_id": 0,
+    "createdAt": 1582067651717,
+    "updatedAt": 1582067651717,
+    "teacher": {
+        "id": 1,
+        "first_name": "Boniface",
+        "last_name": "Laycock",
+        "gender": "Male",
+        "address": "6 Leroy Trail",
+        "phone_number": "993-797-1971",
+        "grade": 1
+    },
+    "parents": [
+        {
+            "id": 3,
+            "first_name": "Bucky",
+            "last_name": "Redfield",
+            "email": "bredfield2@nps.gov",
+            "gender": "Male",
+            "address": "8389 Sage Park",
+            "phone_number": "565-500-7409",
+            "family_id": 0,
+            "createdAt": 1582067651717,
+            "updatedAt": 1582067651717
+        },
+        {
+            "id": 1,
+            "first_name": "Adelind",
+            "last_name": "Henfre",
+            "email": "ahenfre0@msn.com",
+            "gender": "Female",
+            "address": "450 Hooker Crossing",
+            "phone_number": "994-235-3161",
+            "family_id": 0,
+            "createdAt": 1582067651717,
+            "updatedAt": 1582067651717
+        }
+    ],
+    "attendance": [
+        {
+            "school_year_code": 2020,
+            "status": "T",
+            "date": "(JSON string)"
+        }
+    ],
+    "siblings": [
+        {
+            "student_id": 1,
+            "first_name": '',
+            "last_name": ''
+        }
+    ]
+}
+
+
 const STUDENTS = [{
     "id": 1,
     "first_name": "Gene",

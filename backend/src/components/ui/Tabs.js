@@ -1,10 +1,14 @@
 import React, { createContext, useContext, useState } from "react";
 
+
+// Context is shared state. Shared means it is shared outside and with all the other components within this file
+// 
 const TabContext = createContext();
 
+// Gives us access to the shared context inside of functional components
 const useTabContext = () => useContext(TabContext);
 
-const Tab = (props) => {
+const Tab = ({ tab, onClick, children }) => {
     const { active } = useTabContext();
     return (
         <li className="nav-item">
@@ -52,6 +56,7 @@ const Tabs = (props) => {
         props.history.push(`${props.history.location.pathname}?tab=${selectedTab}`)
     }
     return (
+        // Provider allows access to the context/state to anything within its tags 
         <TabContext.Provider value={{ active, setTab }}>
             <div className="card">
                 <div className="card-body">
@@ -62,6 +67,7 @@ const Tabs = (props) => {
     )
 }
 
+// Compound component
 Tabs.List = TabList;
 Tabs.Tab = Tab;
 Tabs.Content = TabContent;

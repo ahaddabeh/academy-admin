@@ -6,15 +6,7 @@ const selectStyle = {
     width: "20%"
 }
 
-const handleTabClick = (e) => {
-    console.log(e.target.getAttribute("data-content"));
-    const content = e.target.getAttribute("data-content");
-    // Remove anything with an active tabs and content
 
-    // Mark the current tab that was clicked as active
-
-    // Use the data-content value to mark the content as active
-}
 
 const findStudentDetails = (id, student_teacher_arr) => {
     for (let i = 0; i < student_teacher_arr.length; i++) {
@@ -95,6 +87,7 @@ const Student = (props) => {
     const teacher_id = findTeacherID(student, student_teacher);
     const student_details = findStudentDetails(student.id, student_teacher);
     const teacherName = findTeacher(teacher_id, teachers);
+
     return (
         <Fragment>
             <div className="container">
@@ -123,6 +116,7 @@ const Student = (props) => {
                         <Tabs.Tab>Grades</Tabs.Tab>
                         <Tabs.Tab>Attendance</Tabs.Tab>
                         <Tabs.Tab>Emergency</Tabs.Tab>
+                        <Tabs.Tab>Siblings</Tabs.Tab>
                     </Tabs.List>
                     <Tabs.Content>
                         <Tabs.Panel>
