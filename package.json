@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
+    "seed": "rm -f db.sqlite && npx sequelize-cli db:migrate:undo:all && npx sequelize-cli db:migrate && npx sequelize-cli db:seed:all",
     "dev:backend": "npm run start --prefix backend",
     "dev:server": "nodemon -w server.js -r esm server.js",
     "dev": "npm-run-all --parallel dev:*"
@@ -33,6 +34,7 @@
     "uuid": "^3.4.0"
   },
   "devDependencies": {
+    "lowdb": "^1.0.0",
     "nodemon": "^2.0.2",
     "npm-run-all": "^4.1.5"
   }

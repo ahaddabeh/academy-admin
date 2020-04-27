@@ -45,8 +45,12 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: true,
       type: DataTypes.JSON,
       field: "grades"
-    }
-
+    },
+    address: {
+      allowNull: false,
+      type: DataTypes.STRING(80),
+      field: "address"
+    },
   }, {
     tableName: "students",
     underscored: true,

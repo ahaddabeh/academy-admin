@@ -68,6 +68,11 @@ module.exports = {
         type: Sequelize.JSON,
         field: "grades"
       },
+      address: {
+        allowNull: false,
+        type: Sequelize.STRING(80),
+        field: "address"
+      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE,

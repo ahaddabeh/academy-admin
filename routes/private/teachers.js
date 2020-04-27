@@ -1,9 +1,12 @@
 const express = require("express");
-
+const { TeacherController } = require("../../controllers")
 const router = express.Router();
 
-router.get("/", (req, res) => console.log("list teachers"));
-router.get("/:id", (req, res) => console.log("get teacher"));
-router.patch("/:id", (req, res) => console.log("edit teachers"));
-router.post("/", (req, res) => console.log("add new teacher"));
-router.delete("/:id", (req, res) => console.log("add new teacher"));
+router.get("/", TeacherController.list);
+router.get("/:id", TeacherController.read);
+router.patch("/:id", TeacherController.update);
+router.post("/", TeacherController.create);
+router.delete("/:id", TeacherController.delete);
+
+
+module.exports = router
