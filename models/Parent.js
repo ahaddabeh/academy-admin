@@ -39,6 +39,16 @@ module.exports = (sequelize, DataTypes) => {
   });
   Parent.associate = function (models) {
     // associations can be defined here
+    Parent.hasMany(models.Student, {
+      as: "mother",
+      foreignKey: "motherId",
+      sourceKey: "id",
+    })
+    Parent.hasMany(models.Student, {
+      as: "father",
+      foreignKey: "fatherId",
+      sourceKey: "id",
+    })
   };
   return Parent;
 };
