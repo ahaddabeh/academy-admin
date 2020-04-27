@@ -5,7 +5,7 @@ const TeacherController = require("./TeacherController");
 const StudentController = require("./StudentController");
 
 module.exports = {
-    ParentController: new ParentController(db),
-    TeacherController: new TeacherController(db),
-    StudentController: new StudentController(db),
+    ParentController: new ParentController(db.Parent),
+    TeacherController: new TeacherController(db.Teacher),
+    StudentController: new StudentController(db.Student),
 }
