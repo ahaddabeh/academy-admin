@@ -20,21 +20,26 @@ const Parents = (props) => {
     const parents = props.fetchParents();
     return (
         <Fragment>
-            <div className="table-responsive">
-                <table className="table table-striped table-sm">
-                    <thead>
-                        <tr>
-                            <th>#</th>
-                            <th>Last Name</th>
-                            <th>First Name</th>
-                            <th>Parent Info</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {buildParents(parents)}
+            <div className="card">
+                <div className="card-header main-color-bg">
+                    <h4 className="card-title"><span>Parents</span><Link to={'/parent/0/edit'} className="btn btn-success btn-sm pull-right">+Parent</Link></h4>
+                </div>
+                <div className="table-responsive">
+                    <table className="table table-striped table-sm">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Last Name</th>
+                                <th>First Name</th>
+                                <th>Parent Info</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {buildParents(parents)}
 
-                    </tbody>
-                </table>
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </Fragment>
     )

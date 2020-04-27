@@ -9,9 +9,8 @@ const Home = () => {
     return (
         <Fragment>
             <h1>
-                Home
+                Welcome
             </h1>
-            {arr}
         </Fragment>
     )
 }

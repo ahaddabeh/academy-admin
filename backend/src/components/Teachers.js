@@ -20,23 +20,28 @@ const Teachers = (props) => {
     const teachers = props.fetchTeachers();
     return (
         <Fragment>
-            <h1>Teachers</h1>
-            <div className="table-responsive">
-                <table className="table table-striped table-sm">
-                    <thead>
-                        <tr>
-                            <th>#</th>
-                            <th>Last Name</th>
-                            <th>First Name</th>
-                            <th>Grade</th>
-                            <th>Teacher Info</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {buildTeachers(teachers)}
 
-                    </tbody>
-                </table>
+            <div className="card">
+                <div className="card-header main-color-bg">
+                    <h4 className="card-title"><span>Teachers</span><Link to={'/teacher/0/edit'} className="btn btn-success btn-sm pull-right">+Teacher</Link></h4>
+                </div>
+                <div className="table-responsive">
+                    <table className="table table-striped table-sm">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Last Name</th>
+                                <th>First Name</th>
+                                <th>Grade</th>
+                                <th>Teacher Info</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {buildTeachers(teachers)}
+
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </Fragment>
     )

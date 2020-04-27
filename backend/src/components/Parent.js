@@ -1,10 +1,15 @@
 import React, { Fragment } from 'react';
 import { Link } from 'react-router-dom';
-import { fetchParent } from '../api'
+import { fetchParent, fetchStudents } from '../api'
+
+
+
+
 
 const Parent = (props) => {
     console.log(props);
     const parent = props.fetchParent(props.match.params.id);
+
     return (
         <Fragment>
             <div className="container">
@@ -21,6 +26,11 @@ const Parent = (props) => {
                         <p><span>Phone: </span>{parent.phone_number}</p>
 
                     </div>
+                </div>
+                <div>
+
+
+
                 </div>
             </div>
         </Fragment>

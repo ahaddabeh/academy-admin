@@ -1,5 +1,8 @@
 import React, { createContext, useContext, useState } from "react";
 
+const tabStyle = {
+    color: "#3c94e7"
+}
 
 // Context is shared state. Shared means it is shared outside and with all the other components within this file
 // 
@@ -8,7 +11,7 @@ const TabContext = createContext();
 // Gives us access to the shared context inside of functional components
 const useTabContext = () => useContext(TabContext);
 
-const Tab = ({ tab, onClick, children }) => {
+const Tab = (props) => {
     const { active } = useTabContext();
     return (
         <li className="nav-item">
@@ -24,9 +27,10 @@ const TabList = (props) => {
     const children = React.Children.map(props.children, (child, idx) => (
         React.cloneElement(child, { tab: `tab-${idx}`, ..._props })
     ))
+    console.log("Its not TabList");
     console.log(children, props);
     return (
-        <ul className="nav nav-tabs">{children}</ul>
+        <ul style={tabStyle} className="nav nav-tabs">{children}</ul>
     )
 }
 

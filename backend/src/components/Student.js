@@ -1,23 +1,43 @@
-import React, { Fragment, useState } from 'react';
+import React, { Fragment, useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import Tabs from './ui/Tabs';
+import StudentForm from './ui/StudentForm';
 
 const selectStyle = {
     width: "20%"
 }
 
 
-
-const findStudentDetails = (id, student_teacher_arr) => {
-    for (let i = 0; i < student_teacher_arr.length; i++) {
-        if (id === student_teacher_arr[i].student_id) {
-            return student_teacher_arr[i];
+const findMother = (mother_id, parentArray) => {
+    for (let i = 0; i < parentArray.length; i++) {
+        if (parentArray[i].id === mother_id) {
+            return parentArray[i];
         }
     }
-    return 0;
+    return [];
 }
 
+const findFather = (father_id, parentArray) => {
+    for (let i = 0; i < parentArray.length; i++) {
+        if (parentArray[i].family_id === father_id) {
+            return parentArray[i];
+        }
+    }
+    return [];
+}
+
+// const findStudentDetails = (id, student_teacher_arr) => {
+//     console.log(id, student_teacher_arr);
+//     for (let i = 0; i < student_teacher_arr.length; i++) {
+//         if (id === student_teacher_arr[i].student_id) {
+//             return student_teacher_arr[i];
+//         }
+//     }
+//     return [];
+// }
+
 const getStudentGrades = (student) => {
+    if (!Object.keys(student.grades)) return null;
     return (
         <tbody>
             <tr>
@@ -59,41 +79,57 @@ const getStudentGrades = (student) => {
 }
 
 
-const findTeacherID = (student, student_teachers) => {
-    for (let i = 0; i < student_teachers.length; i++) {
-        if (student.id === student_teachers[i].student_id) {
-            return student_teachers[i].teacher_id;
-        }
-    }
-    return 0;
-}
-const findTeacher = (id, teachers) => {
+
+const findTeacher = (teacher_id, teachers) => {
     for (let i = 0; i < teachers.length; i++) {
-        if (id === teachers[i].id) {
-            return (teachers[i].first_name + " " + teachers[i].last_name);
+        if (teacher_id === teachers[i].id) {
+            return teachers[i];
         }
     }
     return 0;
 }
 
+
+// Finish this. This will be to import the form component when one of the buttons are clicked
+// const ActionClick = () => {
+//     const handleClick = (e) => {
+//         e.preventDefault();
+//         return;
+//     }
+
+// }
 
 
 const Student = (props) => {
-    const [activeTab, setActiveTab] = useState()
+    const [student, setStudent] = useState(null);
+    const [teacher, setTeacher] = useState(null);
+    const [mother, setMother] = useState(null);
+    const [father, setFather] = useState(null);
     console.log(props);
-    const student = props.fetchStudent(props.match.params.id);
-    const student_teacher = props.fetchStudentTeacher();
-    const teachers = props.fetchTeachers();
-    const teacher_id = findTeacherID(student, student_teacher);
-    const student_details = findStudentDetails(student.id, student_teacher);
-    const teacherName = findTeacher(teacher_id, teachers);
-
+    // 
+    useEffect(() => {
+        const _student = props.fetchStudent(props.match.params.id)
+        // const student_teacher = props.fetchStudentTeacher();
+        // console.log(student_teacher);
+        const parents = props.fetchParents();
+        const teachers = props.fetchTeachers();
+        // const student_details = findStudentDetails(_student.id, student_teacher);
+        setTeacher(findTeacher(_student.teacher_id, teachers));
+        setFather(findFather(_student.father_id, parents));
+        setMother(findMother(_student.mother_id, parents));
+        console.log(_student);
+        // console.log(student_details);
+        // setStudent({ ..._student, grades: { ...student_details.grades } })
+        setStudent({ ..._student });
+    }, [props.match.params.id])
+    if (!student) return <div>Loading...</div>
     return (
         <Fragment>
             <div className="container">
                 <div className="row">
                     <div className="col-md">
                         <h2>Student Name: {student.first_name + " " + student.last_name}</h2>
+                        <h1><i className="fa fa-user"></i></h1>
                     </div>
                     <div className="col-md">
 
@@ -101,10 +137,17 @@ const Student = (props) => {
                         <p><span>Grade: </span>{student.grade}</p>
                         <p><span>Age: </span>{student.age}</p>
                         <p><span>Gender: </span>{student.gender}</p>
-                        <p><span>Teacher: </span>{teacherName}</p>
+                        <p><span>Teacher: </span>{teacher.first_name}  <Link to={`/teacher/${teacher.id}`}>
+                            <button type="button" className="btn btn-info btn-sm">Info</button>
+                        </Link></p>
                         <p><span>Absences: </span>4</p>
                         <p><span>Address: </span>{student.address}</p>
-                        <p><span>Parent(s): </span>Mama Chiellini, Baba Chiellini</p>
+                        <p><span>Mother: </span>{mother.first_name} <Link to={`/parent/${parent.id}`}>
+                            <button type="button" className="btn btn-info btn-sm">Info</button>
+                        </Link></p>
+                        <p><span>Father: </span>{father.first_name} <Link to={`/parent/${parent.id}`}>
+                            <button type="button" className="btn btn-info btn-sm">Info</button>
+                        </Link></p>
                         <p><span>GPA: </span>3.2</p>
 
 
@@ -131,7 +174,8 @@ const Student = (props) => {
                                     </tr>
                                 </thead>
 
-                                {getStudentGrades(student_details)}
+                                {getStudentGrades(student)}
+
                             </table>
                         </Tabs.Panel>
                         <Tabs.Panel>
@@ -163,8 +207,19 @@ const Student = (props) => {
                                 </tbody>
                             </table>
                         </Tabs.Panel>
-                        <Tabs.Panel>Tab 3 Content</Tabs.Panel>
-                        <Tabs.Panel>Tab 4 Content</Tabs.Panel>
+                        <Tabs.Panel>
+                            <div className="row">
+                                <div className="col">
+                                    <p><span>Mother: {mother.first_name + " " + mother.last_name + " "}</span></p>
+                                    <p><span>Mother's Phone Number: {mother.phone_number}</span></p>
+                                </div>
+                                <div className="col">
+                                    <p><span>Father: {father.first_name + " " + father.last_name + " "}</span></p>
+                                    <p><span>Father's Phone Number: {father.phone_number}</span></p>
+                                </div>
+                            </div>
+                        </Tabs.Panel>
+                        <Tabs.Panel><StudentForm /></Tabs.Panel>
                     </Tabs.Content>
                 </Tabs>
 

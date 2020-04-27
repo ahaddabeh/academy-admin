@@ -21,24 +21,27 @@ const Students = (props) => {
     const students = props.fetchStudents();
     return (
         <Fragment>
-            <h1>Students</h1>
-            <div className="table-responsive">
-                <table className="table table-striped table-sm">
-                    <thead>
-                        <tr>
-                            <th>#</th>
-                            <th>Last Name</th>
-                            <th>First Name</th>
-                            <th>Grade</th>
-                            <th>Student Info</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {buildStudents(students)}
-
-                    </tbody>
-                </table>
+            <div className="card">
+                <div className="card-header main-color-bg">
+                    <h4 className="card-title"><span>Students</span><Link to={'/student/1/edit'} className="btn btn-success btn-sm pull-right">+Student</Link></h4>
+                </div>
+                <div className="table-responsive">
+                    <table className="table table-striped table-hover">
+                        <tbody>
+                            <tr>
+                                <th>ID #</th>
+                                <th>Last Name</th>
+                                <th>First Name</th>
+                                <th>Grade</th>
+                                <th>Student Info</th>
+                            </tr>
+                            {buildStudents(students)}
+                        </tbody>
+                    </table>
+                </div>
             </div>
+
+
         </Fragment>
     )
 }
