@@ -22,4 +22,8 @@ app.get("/", (req, res) => {
     res.send("It's working...");
 });
 
+app.use("/api/parents", require("./routes/private/parents"));
+app.use("/api/students", require("./routes/private/students"));
+app.use("/api/teachers", require("./routes/private/teachers"));
+
 app.listen(PORT, () => console.log(`JSON app is running on port::${PORT}`));
