@@ -19,7 +19,12 @@ class BaseController {
     }
 
     _create = async (req, res) => {
-        return await this.model.create(req.body);
+        try {
+            return { status: 200, result: await this.model.create({ ...req.body }) };
+        } catch (error) {
+            console.log(error)
+            return { status: 404, result: "Can't post" };
+        }
     }
 
     _findByPk = async (req, res) => {
@@ -28,8 +33,31 @@ class BaseController {
         return await this.model.findByPk(req.params.id, options);
     }
 
+    _destroy = async (req, res) => {
+        try {
+            const { where = null, ..._options } = req.options || {}
+            const options = { where: { ...where, id: req.params.id }, ..._options };
+            return { status: 200, result: await this.model.destroy(options) }
+        } catch (error) {
+            console.log(error);
+            return { status: 404, result: "Not found" };
+        }
+    }
+
+    _update = async (req, res) => {
+        try {
+            const { where = null, ..._options } = req.options || {}
+            const options = { where: { ...where, id: req.params.id }, ..._options };
+            return { status: 200, result: await this.model.update({ ...req.body }, options) };
+        } catch (error) {
+            console.log(error)
+            return { status: 404, result: "Can't post" };
+        }
+    }
+
     create = async (req, res) => {
-        await res.status(200).send("Create handler");
+        const result = await this._create(req, res);
+        await res.status(result.status).send(result.result);
     }
 
     read = async (req, res) => {
@@ -43,11 +71,13 @@ class BaseController {
     }
 
     update = async (req, res) => {
-        await res.status(200).send("Update record");
+        const result = await this._update(req, res);
+        await res.status(result.status).send(result.result);
     }
 
     delete = async (req, res) => {
-        await res.status(200).send("Delete record");
+        const result = await this._destroy(req, res);
+        await res.status(result.status).send(result.result);
     }
 
 
