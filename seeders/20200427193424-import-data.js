@@ -26,11 +26,20 @@ module.exports = {
       gender: student.gender,
       grade: student.grade,
       address: student.address,
-      mother_id: student.mother_id,
-      father_id: student.father_id,
       teacher_id: student.teacher_id,
       grades: JSON.stringify(student.grades),
     }));
+    const parents_students = []
+    db.get("students").value().map(student => {
+      parents_students.push({
+        parent_id: student.mother_id,
+        student_id: student.id
+      });
+      parents_students.push({
+        parent_id: student.father_id,
+        student_id: student.id
+      });
+    });
     const teachers = db.get("teachers").value().map(teacher => ({
       id: teacher.id,
       phone: teacher.phone_number,
@@ -54,6 +63,7 @@ module.exports = {
       .bulkInsert("parents", parents)
       .then(() => queryInterface.bulkInsert("teachers", teachers))
       .then(() => queryInterface.bulkInsert("students", students))
+      .then(() => queryInterface.bulkInsert("parents_students", parents_students))
   },
 
   down: (queryInterface, Sequelize) => {

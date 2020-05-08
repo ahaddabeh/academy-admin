@@ -1,16 +1,6 @@
 'use strict';
 module.exports = (sequelize, DataTypes) => {
   const Student = sequelize.define('Student', {
-    motherId: {
-      allowNull: false,
-      type: DataTypes.INTEGER,
-      field: "mother_id"
-    },
-    fatherId: {
-      allowNull: false,
-      type: DataTypes.INTEGER,
-      field: "father_id"
-    },
     teacherId: {
       allowNull: false,
       type: DataTypes.INTEGER,
@@ -59,16 +49,7 @@ module.exports = (sequelize, DataTypes) => {
   });
   Student.associate = function (models) {
     // associations can be defined here
-    Student.belongsTo(models.Parent, {
-      as: "mother",
-      foreignKey: "motherId",
-      targetKey: "id",
-    })
-    Student.belongsTo(models.Parent, {
-      as: "father",
-      foreignKey: "fatherId",
-      targetKey: "id",
-    })
+    Student.belongsToMany(models.Parent, { through: "parents_students" })
     Student.belongsTo(models.Teacher, {
       as: "teacher",
       foreignKey: "teacherId",

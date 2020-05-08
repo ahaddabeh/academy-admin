@@ -93,7 +93,7 @@ const Layout = (props) => {
                         </div>
                         <div className="col-md-2">
                             <div>
-                                <Link to={'/student/0/register'} className="btn btn-outline-success" type="button">
+                                <Link to={'/students/register'} className="btn btn-outline-success" type="button">
                                     Register Student
                                 </Link>
 

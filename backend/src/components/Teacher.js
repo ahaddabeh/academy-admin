@@ -1,26 +1,11 @@
-import React, { Fragment } from 'react';
+import React, { Fragment, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-
-import {
-    fetchTeacher,
-    fetchStudents
-} from '../api'
-
-const arrayOfStudents = (students, id) => {
-    let arr = [];
-    for (student of students) {
-        if (student.teacher_id === id) {
-            arr.push(student);
-        }
-    }
-    return arr;
-}
 
 const makeStudentTable = (students) => {
     return students.map((student) =>
-        <tr key={`${student.id}_${student.first_name}_${student.last_name}`}>
-            <td>{student.last_name}</td>
-            <td>{student.first_name}</td>
+        <tr key={`${student.id}_${student.firstName}_${student.lastName}`}>
+            <td>{student.lastName}</td>
+            <td>{student.firstName}</td>
             <td>
                 <Link to={`/student/${student.id}`}>
                     <button type="button" className="btn btn-info btn-sm">Info</button>
@@ -32,22 +17,35 @@ const makeStudentTable = (students) => {
 
 const Teacher = (props) => {
     console.log(props);
-    const teacher = props.fetchTeacher(props.match.params.id);
-    const students = props.fetchStudents();
-    const studentsRelated = (students, teacher.id);
+    const [teacher, setTeacher] = useState({});
+    const [students, setStudents] = useState([]);
+    const updateTeacher = async () => {
+        const result = await props.fetchTeacher(props.match.params.id);
+        const { Students, ..._teacher } = result.data;
+        console.log(_teacher)
+        setTeacher(_teacher)
+        setStudents(Students)
+        // const students = await props.fetchStudents();
+        // setTeacher(teacher);
+        // setStudents(students);
+    }
+    useEffect(() => {
+        updateTeacher();
+        // const studentsRelated = arrayOfStudents(students);
+    }, [props.match.params.id]);
     return (
         <Fragment>
             <div className="container">
                 <div className="row">
                     <div className="col-md">
-                        <h2>Teacher Name: {teacher.first_name + " " + teacher.last_name}</h2>
+                        <h2>Teacher Name: {teacher.firstName + " " + teacher.lastName}</h2>
                     </div>
                     <div className="col-md">
 
                         <p><span>Teacher ID: </span>{teacher.id}</p>
                         <p><span>Grade: </span>{teacher.grade}</p>
                         <p><span>Address: </span>{teacher.address}</p>
-                        <p><span>Phone: </span>{teacher.phone_number}</p>
+                        <p><span>Phone: </span>{teacher.phone}</p>
 
 
 
@@ -63,7 +61,7 @@ const Teacher = (props) => {
                             </tr>
                         </thead>
                         <tbody>
-                            {makeStudentTable(studentsRelated)}
+                            {makeStudentTable(students)}
                         </tbody>
                     </table>
                 </div>

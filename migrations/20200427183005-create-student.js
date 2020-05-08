@@ -8,26 +8,6 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      motherId: {
-        allowNull: false,
-        type: Sequelize.INTEGER,
-        field: "mother_id",
-        unique: false,
-        references: {
-          model: "parents",
-          key: "id"
-        }
-      },
-      fatherId: {
-        allowNull: false,
-        type: Sequelize.INTEGER,
-        field: "father_id",
-        unique: false,
-        references: {
-          model: "parents",
-          key: "id"
-        }
-      },
       teacherId: {
         allowNull: false,
         type: Sequelize.INTEGER,

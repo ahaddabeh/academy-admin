@@ -10,13 +10,9 @@ import ParentForm from './components/ui/ParentForm'
 import StudentForm from './components/ui/StudentForm'
 import RegisterStudentForm from './components/ui/RegisterStudentForm'
 import {
-    fetchStudents,
-    fetchStudent,
-    fetchTeachers,
-    fetchParents,
-    fetchStudentTeacher,
-    fetchParent,
-    fetchTeacher
+    fetchAll,
+    fetchOne,
+    save
 } from './api'
 
 const routes = [
@@ -33,7 +29,7 @@ const routes = [
         component: Students,
         navlabel: "Students",
         navorder: 2,
-        fetchStudents: () => fetchStudents()
+        fetchStudents: async (params = {}) => await fetchAll("/api/students", params)
     },
     {
         path: '/teachers',
@@ -41,7 +37,7 @@ const routes = [
         component: Teachers,
         navlabel: "Teachers",
         navorder: 1,
-        fetchTeachers: () => fetchTeachers()
+        fetchTeachers: async (params = {}) => await fetchAll("/api/teachers", params)
     },
     {
         path: '/parents',
@@ -49,54 +45,38 @@ const routes = [
         component: Parents,
         navlabel: "Parents",
         navorder: 3,
-        fetchParents: () => fetchParents()
+        fetchParents: async (params = {}) => await fetchAll("/api/parents", params)
     },
     {
         path: '/student/:id',
         exact: true,
         component: Student,
-        fetchStudent: (id) => fetchStudent(id),
-        fetchTeachers: () => fetchTeachers(),
-        fetchParents: () => fetchParents()
+        fetchStudent: async (id) => await fetchOne(`/api/students/${id}`)
     },
     {
         path: '/teacher/:id',
         exact: true,
         component: Teacher,
-        fetchTeacher: (id) => fetchTeacher(id),
-        fetchStudents: () => fetchStudents()
+        fetchTeacher: async (id) => await fetchOne(`/api/teachers/${id}`)
     },
     {
         path: '/parent/:id',
         exact: true,
         component: Parent,
-        fetchParent: (id) => fetchParent(id),
-        fetchStudents: () => fetchStudents()
+        fetchParent: async (id) => await fetchOne(`/api/parents/${id}`)
     },
     {
         path: '/teacher/:id/edit',
         exact: true,
         component: TeacherForm,
-        fetchTeacher: (id) => fetchTeacher(id)
+        saveTeacher: async (data) => await save("/api/teachers", data, "post")
     },
     {
-        path: '/parent/:id/edit',
-        exact: true,
-        component: ParentForm,
-        fetchParent: (id) => fetchParent(id)
-    },
-    {
-        path: '/student/:id/register',
+        path: '/students/register',
         exact: true,
         component: RegisterStudentForm,
-        fetchStudent: (id) => fetchStudent(id)
-    },
-    {
-        path: '/student/:id/edit',
-        exact: true,
-        component: StudentForm,
-        fetchStudent: (id) => fetchStudent(id)
-    },
+        saveStudent: async (data) => await save("/api/students/register", data, "post")
+    }
 ];
 
 export default routes;

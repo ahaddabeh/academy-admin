@@ -27,8 +27,7 @@ const TabList = (props) => {
     const children = React.Children.map(props.children, (child, idx) => (
         React.cloneElement(child, { tab: `tab-${idx}`, ..._props })
     ))
-    console.log("Its not TabList");
-    console.log(children, props);
+
     return (
         <ul style={tabStyle} className="nav nav-tabs">{children}</ul>
     )

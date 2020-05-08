@@ -19,34 +19,39 @@ const TeacherForm = (props) => {
 
     const handleSubmit = () => {
 
+        const teacher = {
+            firstName: fnRef.current.value,
+            lastName: lnRef.current.value,
+            gender: genRef.current.value,
+            address: addrRef.current.value,
+            grade: graRef.current.value,
+            phone: phoRef.current.value
+        }
 
-        console.log(fnRef.current.value);
-        console.log(lnRef.current.value);
-
-        console.log(genRef.current.value);
-
-        console.log(addrRef.current.value);
-
-        console.log(graRef.current.value);
-        console.log(phoRef.current.value);
+        props.saveTeacher(teacher);
 
     }
 
     const resetForm = () => {
-
+        fnRef.current.value = "";
+        lnRef.current.value = "";
+        graRef.current.value = "";
+        genRef.current.value = "";
+        addrRef.current.value = "";
+        phoRef.current.value = "";
     }
 
     return (
         <Fragment>
             <div className="form-group">
-                <label htmlFor="first_name">First Name: </label>
+                <label htmlFor="firstName">First Name: </label>
                 <br />
-                <input type="text" ref={fnRef} id="first_name" name="first_name" />
+                <input type="text" ref={fnRef} id="firstName" name="firstName" />
             </div>
             <div className="form-group">
-                <label htmlFor="last_name">Last Name: </label>
+                <label htmlFor="lastName">Last Name: </label>
                 <br />
-                <input type="text" ref={lnRef} id="last_name" name="last_name" />
+                <input type="text" ref={lnRef} id="lastName" name="lastName" />
             </div>
             <div className="form-group">
                 <label htmlFor="gender">Gender: </label>
@@ -73,7 +78,7 @@ const TeacherForm = (props) => {
                     <button type="button" className="btn btn-success btn-sm" onClick={handleSubmit}>Submit</button>
                 </div>
                 <div className="col">
-                    <button type="button" className="btn btn-danger btn-sm" onClick={handleSubmit}>Clear</button>
+                    <button type="button" className="btn btn-danger btn-sm" onClick={resetForm}>Clear</button>
                 </div>
             </div>
         </Fragment>

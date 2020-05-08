@@ -26,23 +26,33 @@ const ParentForm = (props) => {
         console.log(addrRef.current.value);
         console.log(emaRef.current.value);
         fnRef.current.value = "";
+        lnRef.current.value = "";
+        phoRef.current.value = "";
+        genRef.current.value = "";
+        addrRef.current.value = "";
+        emaRef.current.value = "";
     }
 
     const resetForm = () => {
-
+        fnRef.current.value = "";
+        lnRef.current.value = "";
+        phoRef.current.value = "";
+        genRef.current.value = "";
+        addrRef.current.value = "";
+        emaRef.current.value = "";
     }
 
     return (
         <Fragment>
             <div className="form-group">
-                <label htmlFor="first_name">First Name:</label>
+                <label htmlFor="firstName">First Name:</label>
                 <br />
-                <input ref={fnRef} id="first_name" name="first_name" />
+                <input ref={fnRef} id="firstName" name="firstName" />
             </div>
             <div className="form-group">
-                <label htmlFor="last_name">Last Name:</label>
+                <label htmlFor="lastName">Last Name:</label>
                 <br />
-                <input ref={lnRef} id="last_name" name="last_name" />
+                <input ref={lnRef} id="lastName" name="lastName" />
             </div>
             <div className="form-group">
                 <label htmlFor="gender">Gender:</label>
@@ -63,12 +73,6 @@ const ParentForm = (props) => {
                 <label htmlFor="phone_number">Phone Number:</label>
                 <br />
                 <input ref={phoRef} id="phone_number" name="phone_number" />
-            </div>
-            <div>
-                <div className="row">
-                    <button type="button" className="btn btn-success btn-sm" onClick={handleSubmit}>Submit</button>
-                    <button type="button" className="btn btn-danger btn-sm" onClick={handleSubmit}>Clear</button>
-                </div>
             </div>
         </Fragment>
     )

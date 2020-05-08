@@ -1,11 +1,12 @@
-import React, { Fragment } from 'react';
+import React, { Fragment, useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import Pagination from './ui/Pagination';
 const buildTeachers = (teachers) => {
     return teachers.map((teacher) => (
-        <tr key={`${teacher.id}_${teacher.first_name}`}>
+        <tr key={`${teacher.id}_${teacher.firstName}`}>
             <td>{teacher.id}</td>
-            <td>{teacher.last_name}</td>
-            <td>{teacher.first_name}</td>
+            <td>{teacher.lastName}</td>
+            <td>{teacher.firstName}</td>
             <td>{teacher.grade}</td>
             <td>
                 <Link to={`/teacher/${teacher.id}`}>
@@ -17,7 +18,22 @@ const buildTeachers = (teachers) => {
 }
 
 const Teachers = (props) => {
-    const teachers = props.fetchTeachers();
+
+    const [teachers, setTeachers] = useState([]);
+    const [recordCount, setRecordCount] = useState(0);
+    const [currentPage, setCurrentPage] = useState(1);
+    const updateTeachers = async () => {
+        const searchString = new URLSearchParams(props.history.location.search);
+        const _currentPage = searchString.get("page") || 1;
+        const results = await props.fetchTeachers({ page: _currentPage });
+        setTeachers(results.data.rows);
+        setRecordCount(results.data.count);
+        setCurrentPage(_currentPage);
+    }
+    useEffect(() => {
+        updateTeachers();
+    }, [props.history.location.search])
+
     return (
         <Fragment>
 
@@ -43,6 +59,7 @@ const Teachers = (props) => {
                     </table>
                 </div>
             </div>
+            <Pagination type="teachers" total={recordCount} currentPage={currentPage} />
         </Fragment>
     )
 }

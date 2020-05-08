@@ -1,6 +1,6 @@
 class BaseController {
-    constructor(model) {
-        this.model = model;
+    constructor(_models, _model) {
+        this.model = _models[_model];
     }
 
 
@@ -30,6 +30,7 @@ class BaseController {
     _findByPk = async (req, res) => {
         const { where = null, include = null, ..._options } = req.options || {}
         const options = { where, include, ..._options };
+        console.log(options)
         return await this.model.findByPk(req.params.id, options);
     }
 
